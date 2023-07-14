@@ -26,8 +26,24 @@ const devConfig = {
     rules: [
       {
         test: /\.css$/i,
+        exclude: /\module.css$/i,
         use: ['style-loader', 'css-loader']
-      }
+      },
+      {
+        test: /\.css$/i,
+        include: /\module.css$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[local]--[md4:hash:7]'
+              },
+            }
+          },
+        ]
+      },
     ]
   }
 }

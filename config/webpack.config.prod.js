@@ -1,7 +1,7 @@
 const { merge } = require("webpack-merge");
+const path = require('path')
 const commonConfig = require('./webpack.config.common');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // extracts css files in different style file on build
-const path = require('path')
 
 const devConfig = {
   mode: 'production',
@@ -12,8 +12,24 @@ const devConfig = {
     rules: [
       {
         test: /\.css$/i,
+        exclude: /\.module.css$/,
         use: [ MiniCssExtractPlugin.loader, 'css-loader']
-      }
+      },
+      {
+        test: /\.css$/i,
+        include: /\.module.css$/,
+        use: [ 
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[hash:base64]'
+              },
+            }
+          }
+        ]
+      },
     ]
   },
   plugins: [
