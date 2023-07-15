@@ -1,4 +1,4 @@
-import '../styles/index.css'
+import '../styles/index.less'
 import { newTodoEventHandler, onLoadEventHandler, removeTodoEventHandler, toggleTodoEventListener } from "./event-handlers";
 
 window.addEventListener('load', onLoadEventHandler)

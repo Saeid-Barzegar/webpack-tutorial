@@ -58,6 +58,10 @@ const devConfig = {
           }
         ]
       },
+      {
+        test: /\.less$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+      }
     ]
   },
   plugins: [
