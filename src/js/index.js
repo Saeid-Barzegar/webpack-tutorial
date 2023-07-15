@@ -1,3 +1,4 @@
+import '../styles/vendors.scss'
 import '../styles/index.scss'
 import { newTodoEventHandler, onLoadEventHandler, removeTodoEventHandler, toggleTodoEventListener } from "./event-handlers";
 

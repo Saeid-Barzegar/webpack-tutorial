@@ -1,8 +1,10 @@
 const { merge } = require("webpack-merge");
-const path = require('path')
+const path = require('path');
+const glob = require('glob');
 const commonConfig = require('./webpack.config.common');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // extracts css files in different style file on build
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
 
 const devConfig = {
   mode: 'production',
@@ -76,6 +78,17 @@ const devConfig = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'styles/[name].[contenthash:12].css', // 12 is the length of hash (default is 20)
+    }),
+    /**
+     * this webpack plugin will remove all unused css styles 
+     * it'w very helpful when using css frameworks 
+     * it will clean all unused styles and classes from bundle files
+     */
+    new PurgeCSSPlugin({
+      paths: glob.sync(
+        `${path.join(__dirname, '../src')}/**/*`,
+        { nodir: true }, // and this rule just searchs for files no directories
+      ),
     }),
   ]
 }
