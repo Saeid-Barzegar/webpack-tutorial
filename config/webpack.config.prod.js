@@ -1,6 +1,6 @@
-const { merge } = require("webpack-merge");
 const path = require('path');
 const glob = require('glob');
+const { merge } = require("webpack-merge");
 const commonConfig = require('./webpack.config.common');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // extracts css files in different style file on build
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
