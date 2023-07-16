@@ -74,7 +74,19 @@ const devConfig = {
               ],
             ],
           }
-        }
+        },
+        // to convert file types to specific format
+        generator:[
+          {
+            type: 'asset',
+            preset: 'webp-custom-name', // custom name
+            implementation: ImageMinimizerPlugin.imageminGenerate,
+            options: {
+              // to change output images format to webp type
+              plugins: ['imagemin-webp']
+            }
+          }
+        ]
       })
     ],
   },

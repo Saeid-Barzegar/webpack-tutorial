@@ -11,7 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
  * and this plugin will work good in dev as well
  */
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // to copy images from different directory
 
 const config = {
   mode: 'production',
