@@ -11,6 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
  * and this plugin will work good in dev as well
  */
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
   mode: 'production',
@@ -60,6 +61,11 @@ const config = {
         path.join(process.cwd(), 'build/**/*'), 
       ]
     }),
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: 'images/motivational-pictures/*.*'
+      }]
+    })
   ]
 }
 

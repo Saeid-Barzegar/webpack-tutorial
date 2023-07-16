@@ -5,6 +5,7 @@ const commonConfig = require('./webpack.config.common');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // extracts css files in different style file on build
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 const devConfig = {
   mode: 'production',
@@ -36,13 +37,52 @@ const devConfig = {
           ],
         },
       }),
+      /**
+       * plugin to compress and optimisation of images
+       */
+      new ImageMinimizerPlugin({
+        minimizer: {
+          // theres a lot of optimizers and here imageminMinify has been used
+          implementation: ImageMinimizerPlugin.imageminMinify,
+          options: {
+            plugins: [
+              ['imagemin-mozjpeg', { quality: 40 }],
+              ['imagemin-pngquant', {
+                quality: [0.65, 0.90],
+                speed: 4,
+              }],
+              ['imagemin-gifsicle', { interlaced: true }],
+              ['imagemin-svgo', {
+                  plugins: [
+                    {
+                      name: "preset-default",
+                      params: {
+                        overrides: {
+                          removeViewBox: false,
+                          addAttributesToSVGElement: {
+                            params: {
+                              attributes: [
+                                { xmlns: "http://www.w3.org/2000/svg" },
+                              ],
+                            },
+                          },
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            ],
+          }
+        }
+      })
     ],
   },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        exclude: /\.module.css$/,
+        exclude: /\.module.css$/i,
         use: [ MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
@@ -73,6 +113,48 @@ const devConfig = {
           'sass-loader'
         ]
       },
+      {
+        test: /\.(png|jpg|svg)$/i,
+        type: 'asset',
+        /**
+         * this parcel rule will inject the images with less than 10 KB 
+         * into the js bundle
+         */
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024,
+          }
+        },
+        /**
+         * and for files more than 10 KB it will create a new directory with name images
+         * and save the images with originam name and extension there
+         */
+        generator: {
+          filename: './images/[name].[contenthash:12][ext]'
+        },
+        /** 
+         * this rules used to reduced the output image files after build
+         * with image-webpack-loader webpack plugin
+         * this part commented and ImageMinimizer used in optimization part
+         */
+        // use: [
+        //   {
+        //     loader: 'image-webpack-loader',
+        //     options: {
+        //       // mozjpeg is the jpeg compressor name used by image-webpack-loader
+        //       mozjpeg: {
+        //         quality: 40,
+        //       },
+        //       // pngquant is png compressor name
+        //       pngquant: {
+        //         quality: [0.65, 0.90],
+        //         speed: 4, // default value
+        //       }
+        //     }
+        //   }
+        // ]
+
+      }
     ]
   },
   plugins: [

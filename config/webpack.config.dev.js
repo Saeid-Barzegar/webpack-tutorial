@@ -52,6 +52,26 @@ const devConfig = {
         test: /\.s(c|a)ss$/,
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
+      {
+        test: /\.(png|jpg|svg)$/i,
+        type: 'asset',
+        /**
+         * this parcel rule will inject the images with less than 10 KB 
+         * into the js bundle
+         */
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024,
+          }
+        },
+        /**
+         * and for files more than 10 KB it will create a new directory with name images
+         * and save the images with originam name and extension there
+         */
+        generator: {
+          filename: './images/[name][ext]'
+        }
+      }
     ]
   }
 }

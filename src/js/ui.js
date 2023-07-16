@@ -1,4 +1,6 @@
 import styles from "../styles/notification.module.css";
+import CheckMarkIcon from "../../images/checkmark.svg";
+import { getMotivationamPictures } from "./api";
 
 export function renderTodos(todos) {
   const renderedItemArray = todos.map(function (todo) {
@@ -7,7 +9,7 @@ export function renderTodos(todos) {
       return `
           <li data-id="${todo.id}" class="${className}">
               <span class="custom-checkbox">
-                  <img class="check" src="./images/checkmark.svg" width="22" height="22"></img>
+                  <img class="check" src="${CheckMarkIcon}" width="22" height="22"></img>
                   <input class="real-checkbox" type="checkbox" ${completionClass} />
               </span>
               <label>${todo.text}</label>
@@ -15,7 +17,8 @@ export function renderTodos(todos) {
           </li>
       `
   })
-  document.querySelector('.todo-list').innerHTML = renderedItemArray.join('')
+  document.querySelector('.todo-list').innerHTML = renderedItemArray.join('');
+  renderMotivationamPictures();
 };
 
 export function clearNewTodoInput() {
@@ -44,3 +47,19 @@ function showNotification() {
     notificationElement.parentNode.removeChild(notificationElement);
   }, 2000)
 };
+
+
+function renderMotivationamPictures() {
+  getMotivationamPictures()
+    .then(pictures => {
+      const motivationalPictures = `
+        <div class="motivational-pictures">
+        ${pictures.map(picture => {
+          return '<img class="header-image" src="'+ picture + '" alt="motivational picture" />'
+        }).join('')}
+        </div>
+      `;
+      const motivationalPicturesContainer = document.querySelector('.motivational-pictures-container');
+      motivationalPicturesContainer.innerHTML = motivationalPictures;
+    })
+}
