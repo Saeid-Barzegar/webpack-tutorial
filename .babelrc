@@ -1,13 +1,38 @@
+/**
+* babel env will be injected on package.json 
+* when run or build script by BABEL_ENV or NODE_ENV
+* this Environment variables only works on linux or mac
+* NODE_ENV=development || BABEL_ENV=development <command>
+* NODE_ENV=production || BABEL_ENV=production <command>
+* for windows it will be like the  below
+* set NODE_ENV=development || BABEL_ENV=development  && <command>
+* command will be like <webpack --config...>
+* 
+* we will use corss-env library to use Env variables for all platforms with same way
+* should be used like this for all platforms and OS
+* cross-env NODE_ENV=development <command>
+*/
 {
-  "presets": [
-    ["@babel/preset-env", {
-      // this line will enables polyfils ( add new features to old browsers )
-      "useBuiltIns": "usage",
-      "corejs": {
-        "version": 3,
-        "proposals": true
-      },
-      "debug": true // in dev process we can see which polyfill added by babel
-    }]
-  ]
+  "env": {
+    // babel configurations for development mode
+    "development": {
+      "presets": [
+        ["@babel/preset-env"]
+      ]
+    },
+    // babel configurations for production mode
+    "production": {
+      "presets": [
+        ["@babel/preset-env", {
+          // this line will enables polyfils ( add new features to old browsers )
+          "useBuiltIns": "usage",
+          "corejs": {
+            "version": 3,
+            "proposals": true
+          },
+          "debug": true // in dev process we can see which polyfill added by babel
+        }]
+      ]
+    }
+  }
 }

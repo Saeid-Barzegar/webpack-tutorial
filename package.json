@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack server --config config/webpack.config.dev.js",
-    "build": "webpack --config config/webpack.config.prod.js"
+    "start": "cross-env NODE_ENV=development webpack server --config config/webpack.config.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.31.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "html-loader": "^4.2.0",
