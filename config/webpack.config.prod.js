@@ -9,6 +9,11 @@ const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 const devConfig = {
   mode: 'production',
+  /**
+   * will provide full code to review the issues
+   * even in production for both js and css
+   */
+  devtool: 'source-map',
   output: {
     filename: 'js/[name].[contenthash].js'
   },

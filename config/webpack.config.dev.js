@@ -5,6 +5,7 @@ const path = require("path");
 
 const devConfig = {
   mode: 'development',
+  devtool: 'eval-source-map', // faster and more code quiality in dev mode
   output: {
     filename: 'main.js'
   },
