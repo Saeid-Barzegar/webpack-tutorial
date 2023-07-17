@@ -13,6 +13,14 @@
 * cross-env NODE_ENV=development <command>
 */
 {
+  /** 
+  * common place for all babel configurations ( both dev and prod )
+  * with this plugin @babel/plugin-proposal-pipeline-operator
+  * babel can read pipeline ( |> ) operator 
+  */
+  "plugins": [
+    ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal"}]
+  ],
   "env": {
     // babel configurations for development mode
     "development": {
