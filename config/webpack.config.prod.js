@@ -27,6 +27,12 @@ const devConfig = {
    * The `...` line in first line of minimizer will do that
    */
   optimization: {
+    /**
+     * this webpack config ( usedExports ) is in charge to tree chaking 
+     * means will remove all unused js files and codes
+     * from final bundle file. it can decrease the js bundle size
+     */
+    usedExports: true,
     minimize: true,
     minimizer: [
       `...`, // to use default rules as well
