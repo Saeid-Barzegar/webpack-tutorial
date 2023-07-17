@@ -34,6 +34,9 @@ const config = {
     //   keep: /\.css/, 
     // },
   },
+  resolve: {
+    extensions: [".js", ".ts"]
+  },
   module:{
     rules: [
       {
@@ -45,7 +48,7 @@ const config = {
         ]
       },
       {
-        test: /\.js$/i,
+        test: /\.(js|ts)$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'

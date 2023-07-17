@@ -18,6 +18,9 @@
   * with this plugin @babel/plugin-proposal-pipeline-operator
   * babel can read pipeline ( |> ) operator 
   */
+  "presets": [
+    "@babel/preset-typescript"
+  ],
   "plugins": [
     ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal"}]
   ],
