@@ -164,25 +164,35 @@ const devConfig = {
       maxSize: Infinity,
       minSize: 0,
       cacheGroups: {
-        jquery: {
-          test: /[\\/]node_modules[\\/]jquery[\\/]/,
-          chunks: 'initial',
-          name: 'jquery',
-        },
-        bootstrap: {
-          test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
-          chunks: 'initial',
-          name: 'bootstrap'
-        },
+        // added to async chunk
+        // jquery: {
+        //   test: /[\\/]node_modules[\\/]jquery[\\/]/,
+        //   chunks: 'initial',
+        //   name: 'jquery',
+        //   priority: 2,
+        // },
+        // bootstrap: {
+        //   test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
+        //   chunks: 'initial',
+        //   name: 'bootstrap' 
+        // },
         lodash: {
           test: /[\\/]node_modules[\\/]lodash[\\/]/,
           chunks: 'initial',
-          name: 'lodashs'
+          name: 'lodashs',
+          priority: 2,
         },
         node_modules: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'initial',
           name: 'node_modules'
+        },
+        async: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name(module, chunks){
+            return chunks.map(chunk => chunk.name).join("-")
+          }
         },
       }
     }
