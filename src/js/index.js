@@ -1,6 +1,12 @@
 import '../styles/vendors.scss'
 import '../styles/index.scss'
-import { newTodoEventHandler, onLoadEventHandler, removeTodoEventHandler, toggleTodoEventListener } from "./event-handlers";
+import {
+    confirmRemoveEventHandler,
+    newTodoEventHandler,
+    onLoadEventHandler,
+    removeTodoEventHandler,
+    toggleTodoEventListener
+} from "./event-handlers";
 
 window.addEventListener('load', onLoadEventHandler)
 document.addEventListener('change', function (event) {
@@ -14,5 +20,8 @@ document.addEventListener('click', function (event) {
     }
     if (event.target.classList.contains('real-checkbox')) {
         toggleTodoEventListener(event)
+    }
+    if(event.target.id === 'modal-delete-button') {
+        confirmRemoveEventHandler(event)
     }
 })
