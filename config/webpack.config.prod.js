@@ -104,17 +104,85 @@ const devConfig = {
      * this configuration is for split large bundles to the smaller chunks
      * to speed up loading the modules
      */
+    // splitChunks: {
+      // Manula splitting
+      // cacheGroups: {
+      //   jquery: {
+      //     test: /[\\/]node_modules[\\/]jquery[\\/]/,
+      //     chunks: 'initial', // ( async | all )
+      //     name: 'jquery',
+      //   },
+      //   bootstrap: {
+      //     test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
+      //     chunks: 'initial', // ( async | all )
+      //     name: 'bootstrap'
+      //   },
+      // }
+    // }
+    // automation for code splitting
+    // splitChunks: {
+    //   chunks: 'all',
+    //   maxSize: 140000,
+    //   minSize: 0,
+    //   name(module, chunk, cacheGroup){
+    //     const filePathAsArray = module.identifier().split('/')
+    //     return filePathAsArray[filePathAsArray.length - 1]
+    //   }
+    // }
+    // bundle all node_modules separately in one bundle
+    // splitChunks: {
+    //   chunks: 'all',
+    //   maxSize: Infinity,
+    //   minSize: 0,
+    //   cacheGroups: {
+    //     node_modules: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'node_modules',
+    //     }
+    //   }
+    // }
+    // one bundle for each library
+    // splitChunks: {
+    //   chunks: 'all',
+    //   maxSize: Infinity,
+    //   minSize: 0,
+    //   cacheGroups: {
+    //     node_modules: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name(module){
+    //         const packageName = module.context.match(
+    //           /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
+    //         )[1];
+    //         return packageName;
+    //       }
+    //     }
+    //   }
+    // }
+    runtimeChunk: 'single',
     splitChunks: {
+      chunks: 'all',
+      maxSize: Infinity,
+      minSize: 0,
       cacheGroups: {
         jquery: {
           test: /[\\/]node_modules[\\/]jquery[\\/]/,
-          chunks: 'initial', // ( async | all )
+          chunks: 'initial',
           name: 'jquery',
         },
         bootstrap: {
           test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
-          chunks: 'initial', // ( async | all )
+          chunks: 'initial',
           name: 'bootstrap'
+        },
+        lodash: {
+          test: /[\\/]node_modules[\\/]lodash[\\/]/,
+          chunks: 'initial',
+          name: 'lodashs'
+        },
+        node_modules: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'initial',
+          name: 'node_modules'
         },
       }
     }
