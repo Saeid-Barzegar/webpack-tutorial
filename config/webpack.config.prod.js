@@ -100,6 +100,24 @@ const devConfig = {
         ]
       })
     ],
+    /**
+     * this configuration is for split large bundles to the smaller chunks
+     * to speed up loading the modules
+     */
+    splitChunks: {
+      cacheGroups: {
+        jquery: {
+          test: /[\\/]node_modules[\\/]jquery[\\/]/,
+          chunks: 'initial', // ( async | all )
+          name: 'jquery',
+        },
+        bootstrap: {
+          test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
+          chunks: 'initial', // ( async | all )
+          name: 'bootstrap'
+        },
+      }
+    }
   },
   module: {
     rules: [
