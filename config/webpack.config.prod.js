@@ -15,7 +15,8 @@ const devConfig = {
    */
   devtool: 'source-map',
   output: {
-    filename: 'js/[name].[contenthash].js'
+    filename: 'js/[name].[contenthash].js',
+    publicPath: '/static/'
   },
   /**
    * by default webpack has it's own optimization rules

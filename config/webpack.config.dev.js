@@ -1,13 +1,16 @@
 const { merge } = require("webpack-merge");
 const commonConfig = require('./webpack.config.common');
 const path = require("path");
+const webpack = require('webpack');
 
 
 const devConfig = {
   mode: 'development',
   devtool: 'eval-source-map', // faster and more code quiality in dev mode
+  entry: './src/js/index-dev.js',
   output: {
-    filename: 'main.js'
+    filename: 'main.js',
+    publicPath: '/static/'
   },
   devServer: {
     port: 9000,
@@ -74,7 +77,10 @@ const devConfig = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }
 
 
