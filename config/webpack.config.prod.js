@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // extracts css
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 const devConfig = {
   mode: 'production',
@@ -292,6 +293,10 @@ const devConfig = {
         { nodir: true }, // and this rule just searchs for files no directories
       ),
     }),
+    new CompressionWebpackPlugin({
+      algorithm: 'gzip',
+      test: /\.(js|css)$/i,
+    })
   ]
 }
 
