@@ -20,7 +20,14 @@ app.get('/', function (req, res){
   res.sendFile(pathToHtmlFile)
 });
 
-app.use('/static', expressStaticGzip(path.resolve(__dirname, '../dist')))
+app.use('/static', expressStaticGzip(
+  path.resolve(__dirname, '../dist'),
+  {
+    enableBrotli: true,
+    // if brotli exists sends britli otherwize sends gz
+    orderPreference: ['br', 'gz'],
+  }
+))
 
 app.listen(3000, function (){
   console.log("Server is running on port http://localhost:3000")
