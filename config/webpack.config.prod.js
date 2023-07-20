@@ -293,9 +293,18 @@ const devConfig = {
       ),
     }),
     new CompressionWebpackPlugin({
-      algorithm: 'gzip',
+      filename: '[path][base].gz',
+      algorithm: 'gzip', // and algorithm to compress files
       test: /\.(js|css)$/i,
-    })
+    }),
+    new CompressionWebpackPlugin({
+      filename: '[path][base].br',
+      algorithm: 'brotliCompress', // another algorithm to compress files ( 11 levels of compression)
+      test: /\.(js|css)$/i,
+      compressionOptions: {
+        level: 11, // highest level of compression
+      }
+    }),
   ]
 }
 
